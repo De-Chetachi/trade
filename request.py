@@ -9,7 +9,9 @@ import datetime
 import pytz
 from datetime import timedelta
 from gecko import get_id_ca, get_prices
-
+if len(sys.argv) < 4:
+    print("provide all requires arguments")
+    sys.exit()
 #username = sys.argv[1]
 #print(username)
 username = "test"
@@ -176,7 +178,7 @@ for tweet in tweets:
     date = parsed_date.astimezone(pytz.utc)
 
     if date < (datetime.datetime.now(pytz.utc) - timedelta(days=1)):
-            print("this tweet is skipped cause it was made more that 24 hours ago")
+            print("this tweet is skipped cause it was made more than 24 hours ago")
             continue
     if date >= compare_date:
         text = tweet["text"]

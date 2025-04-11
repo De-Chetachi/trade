@@ -23,7 +23,7 @@ Ensure the following Python modules are installed:
 You can install them using pip:
 
 ```bash
-pip install -m requests pandas "pymongo[srv]"
+python3 -m pip install  requests pandas "pymongo[srv]"
 
 
 ## Command-Line Arguments

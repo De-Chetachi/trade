@@ -37,7 +37,7 @@ def get_prices(id_, start, end):
     try:
         url = f"https://api.coingecko.com/api/v3/coins/{id_}/market_chart/range"
         parameters = {
-            #"interval": "5m",
+            "interval": "5m",
             "vs_currency": "usd",
             "from": start,
             "to": end,

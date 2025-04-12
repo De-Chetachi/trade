@@ -35,12 +35,13 @@ user_id = user_data["data"]["id"]
 print(user_id)
 now = datetime.datetime.now(pytz.utc)
 compare_date = now - timedelta(days=days_cap)
+compare_date_ = compare_date.isoformat().replace('+00:00', 'Z')
+now_ = now.isoformat().replace('+00:00', 'Z')
 posts_url = f"https://api.twitter.com/2/users/{user_id}/tweets" 
 params = {
-        "exclude": ["replies", "retweets"],
-        "start_time": f"{compare_date}",
-        "end_time": f"{now}",
-        "tweet.fields": ["text", "created_at"],
+        #"exclude": "replies,retweets"
+        "start_time": compare_date_,
+        "end_time": now_,
 }
 
 posts = requests.get(posts_url, headers=headers, params=params).json()

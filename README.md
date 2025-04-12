@@ -24,7 +24,7 @@ You can install them using pip:
 
 ```bash
 python3 -m pip install  requests pandas "pymongo[srv]"
-
+```
 
 ## Command-Line Arguments
 
@@ -43,14 +43,15 @@ Set the following environment variable:
 
 ```bash
 export GECKO_KEY=<your_gecko_api_key>
-
+```
 Execute the script from your terminal using the following format:
 
 ```bash
 ./request.py <coin_name> <coin_ticker> <timeframe_days>
-
+```
 
 example
 
+```bash
 ./request.py Pepe \$PEPE 7
-
+```

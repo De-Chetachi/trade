@@ -37,12 +37,13 @@ now = datetime.datetime.now(pytz.utc)
 compare_date = now - timedelta(days=days_cap)
 
 
-compare_date_ = compare_date.isoformat()
-#.replace('+00:00', 'Z.')
-now_ = now.isoformat()
-#.replace('+00:00', 'Z.')
-print(compare_date_)
-print(now_)
+[compare_date_, zone] = compare_date.isoformat().split(".")
+imp = zone.split("+")[1]
+compare_date_ += f"+{imp}"
+
+[now_, now_z] = now.isoformat().split(".")
+now_imp = now_z.split("+")[1]
+now_ += f"+{now_imp}"
 
 posts_url = f"https://api.twitter.com/2/users/{user_id}/tweets" 
 params = {

@@ -50,13 +50,15 @@ params = {
         #"exclude": "replies,retweets"
         "start_time": compare_date_,
         "end_time": now_,
-}
+        "tweet.fields": "created_at"
+        }
 
 posts = requests.get(posts_url, headers=headers, params=params).json()
 print(posts)
-date_format = "%a %b %d %H:%M:%S %z %Y"
+#date_format = "%a %b %d %H:%M:%S %z %Y"
+date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
 while 1:
-    tweets = posts["includes"]["tweets"]
+    tweets = posts["data"]
 
     for tweet in tweets:
         print(tweet)

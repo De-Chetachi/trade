@@ -74,7 +74,7 @@ while 1:
                 print(e)
     if posts["meta"].get("next_token"):
         params["pagination_token"] = posts["meta"]["next_token"]
-        posts = requests.get(posts_url, headers=headers, params = params).json()
+        posts = requests.get(posts_url, headers=headers, params=params).json()
     else:
         break
 

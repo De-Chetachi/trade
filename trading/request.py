@@ -57,6 +57,8 @@ posts = requests.get(posts_url, headers=headers, params=params).json()
 print(posts)
 #date_format = "%a %b %d %H:%M:%S %z %Y"
 date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
+name = coin.replace("$", "").capitalize()
+id_, ca  = get_id_ca(name)
 while 1:
     tweets = posts["data"]
 
@@ -72,9 +74,6 @@ while 1:
 
         if match:
             try:
-                name = coin.replace("$", "").capitalize()
-                id_, ca  = get_id_ca(name)
-
                 start = (date - timedelta(minutes=5)).timestamp()
                 end = (date + timedelta(minutes=15)).timestamp()
                 prices = get_prices(id_, start, end)

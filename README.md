@@ -2,7 +2,7 @@
 
 This Python script gathers price action data for tokens following tweets that mention them.
 
-* if you have a twitter and coingecko enterprise api key
+* if you have an unlimited twitter and coingecko api key
 * checkout the unlimited version in the trading folder
 
 

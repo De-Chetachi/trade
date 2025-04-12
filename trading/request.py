@@ -26,30 +26,35 @@ if not token:
 bearer = f"Bearer {token}"
 headers = {"Authorization": bearer, "Content-Type": "application/json"}
 
-params = {"tweet.fields": ["text", "created_at"]}
 
 #url = f"https://api.twitter.com/2/users/:id" based on id
 url = f"https://api.twitter.com/2/users/by/username/{username}"
-r = requests.get(url, headers=headers, params=params)
-data = r.json();
-print(data)
+r = requests.get(url, headers=headers)
+user_data = r.json();
+user_id = user_data["data"]["id"]
+print(user_id)
+now = datetime.datetime.now(pytz.utc)
+compare_date = now - timedelta(days=days_cap)
+posts_url = f"https://api.twitter.com/2/users/{user_id}/tweets" 
+params = {
+        "exclude": ["replies", "retweets"],
+        "start_time": f"{compare_date}",
+        "end_time": f"{now}",
+        "tweet.fields": ["text", "created_at"],
+}
 
-
-tweets = data["includes"]["tweets"]
-
-compare_date = datetime.datetime.now(pytz.utc) - timedelta(days=days_cap)
-
+posts = requests.get(posts_url, headers=headers, params = params).json()
+print(posts)
 date_format = "%a %b %d %H:%M:%S %z %Y"
+while 1:
+    tweets = posts["includes"]["tweets"]
 
-if not tweets or len(tweets) == 0:
-    print("no tweets found")
+    for tweet in tweets:
+        print(tweet)
+        date_str = tweet["created_at"]
+        parsed_date = datetime.datetime.strptime(date_str, date_format)
+        date = parsed_date.astimezone(pytz.utc)
 
-for tweet in tweets:
-    date_str = tweet["created_at"]
-    parsed_date = datetime.datetime.strptime(date_str, date_format)
-    date = parsed_date.astimezone(pytz.utc)
-
-    if date >= compare_date:
         text = tweet["text"]
         pattern = re.compile(re.escape(ticker), re.IGNORECASE)
         match = pattern.search(text)
@@ -59,13 +64,17 @@ for tweet in tweets:
                 name = coin.replace("$", "").capitalize()
                 id_, ca  = get_id_ca(name)
 
-                start = date - timedelta(minutes=5)
-                start = start.timestamp()
-                end = date + timedelta(minutes=15)
-                end = end.timestamp()
+                start = (date - timedelta(minutes=5)).timestamp()
+                end = (date + timedelta(minutes=15)).timestamp()
                 prices = get_prices(id_, start, end)
 
-                add_doc(username, coin, date_str, prices[0], prices[1], prices[2], prices[3], ca)
+                add_doc(username, coin, date, prices[0], prices[1], prices[2], prices[3], ca)
                 print_pretty()
             except Exception as e:
                 print(e)
+    if posts["meta"].get("next_token"):
+        params["pagination_token"] = posts["meta"]["next_token"]
+        posts = requests.get(posts_url, headers=headers, params = params).json()
+    else:
+        break
+

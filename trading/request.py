@@ -26,11 +26,13 @@ if not token:
 bearer = f"Bearer {token}"
 headers = {"Authorization": bearer, "Content-Type": "application/json"}
 
+params = {"tweet.fields": ["text", "created_at"]}
 
 #url = f"https://api.twitter.com/2/users/:id" based on id
 url = f"https://api.twitter.com/2/users/by/username/{username}"
-r = requests.get(url, headers=headers)
+r = requests.get(url, headers=headers, params=params)
 data = r.json();
+print(data)
 
 
 tweets = data["includes"]["tweets"]

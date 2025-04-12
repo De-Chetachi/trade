@@ -35,8 +35,15 @@ user_id = user_data["data"]["id"]
 print(user_id)
 now = datetime.datetime.now(pytz.utc)
 compare_date = now - timedelta(days=days_cap)
-compare_date_ = compare_date.isoformat().replace('+00:00', 'Z')
-now_ = now.isoformat().replace('+00:00', 'Z')
+
+
+compare_date_ = compare_date.isoformat()
+#.replace('+00:00', 'Z.')
+now_ = now.isoformat()
+#.replace('+00:00', 'Z.')
+print(compare_date_)
+print(now_)
+
 posts_url = f"https://api.twitter.com/2/users/{user_id}/tweets" 
 params = {
         #"exclude": "replies,retweets"

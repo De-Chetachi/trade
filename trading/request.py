@@ -43,7 +43,7 @@ params = {
         "tweet.fields": ["text", "created_at"],
 }
 
-posts = requests.get(posts_url, headers=headers, params = params).json()
+posts = requests.get(posts_url, headers=headers, params=params).json()
 print(posts)
 date_format = "%a %b %d %H:%M:%S %z %Y"
 while 1:

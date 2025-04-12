@@ -2,19 +2,9 @@
 
 This Python script gathers price action data for tokens following tweets that mention them.
 
-* if you have a twitter and coingecko enterprise api key
-* checkout the unlimited version in the trading folder
+* if you dont have a twitter and coingecko enterprise api key
+* checkout the limited version in the trade folder
 
-
-## Limitations
-
-1.  **Real-time Tweet Data:**
-    * The script cannot directly access real-time tweet data.
-    * It relies on a user-specified object (`data` variable within the script) containing tweet information.
-    * You must manually modify the `tweets` key within the `data` variable to simulate tweet data for testing.
-
-2.  **Tweet Timeframe:**
-    * For the script to function correctly, the `created_at` timestamp for each tweet must be within 24 hours of the current time.
 
 ## Prerequisites
 
@@ -33,12 +23,14 @@ python3 -m pip install  requests pandas "pymongo[srv]"
 ## Command-Line Arguments
 
 The script accepts the following command-line arguments:
+1.  **Usernamee:**
+    * the username of the twitter influencer
 
-1.  **Coin Name:**
+2.  **Coin Name:**
     * The name of the cryptocurrency (e.g., `Pepe`).
-2.  **Coin Ticker:**
+3.  **Coin Ticker:**
     * The coin's ticker symbol (e.g., `\$PEPE`). Note the backslash (`\`) to escape the dollar sign (`$`) in the command line.
-3.  **Timeframe (Days):**
+4.  **Timeframe (Days):**
     * The number of days to analyze the price action from the tweet time (must be a numerical value).
 
 ## Environment Variables
@@ -47,15 +39,17 @@ Set the following environment variable:
 
 ```bash
 export GECKO_KEY=<your_gecko_api_key>
+export TWITTER_TOKEN=<your_twitter_api_key>
+export MONGO_URL=<your mongo database connection string>
 ```
 Execute the script from your terminal using the following format:
 
 ```bash
-./request.py <coin_name> <coin_ticker> <timeframe_days>
+./request.py <username> <coin_name> <coin_ticker> <timeframe_days>
 ```
 
 example
 
 ```bash
-./request.py Pepe \$PEPE 7
+./request.py ViperMasol Pepe \$PEPE 7
 ```

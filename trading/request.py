@@ -53,8 +53,11 @@ params = {
         "tweet.fields": "created_at"
         }
 
-posts = requests.get(posts_url, headers=headers, params=params).json()
-print(posts)
+res_posts = requests.get(posts_url, headers=headers, params=params)
+posts = res_posts.json()
+if res_posts.status_code != 200:
+    print(posts)
+    sys.exit()
 #date_format = "%a %b %d %H:%M:%S %z %Y"
 date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
 name = coin.replace("$", "").capitalize()
@@ -84,7 +87,11 @@ while 1:
                 print(e)
     if posts["meta"].get("next_token"):
         params["pagination_token"] = posts["meta"]["next_token"]
-        posts = requests.get(posts_url, headers=headers, params=params).json()
+        res_posts = requests.get(posts_url, headers=headers, params=params)
+        posts = res_posts.json()
+        if res_posts.status_code != 200:
+            print(posts)
+            sys.exit()
     else:
         break
 

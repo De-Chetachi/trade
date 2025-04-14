@@ -19,7 +19,9 @@ def get_id_ca(name):
         #id_url = "https://api.coingecko.com/api/v3/coins/list"
         id_url = "https://pro-api.coingecko.com/api/v3/coins/list"
         r = requests.get(id_url, headers=headers, params=params)
-        coins = r.json()
+        if r.status_code != 200:
+            print(r.json().get("status").get("error_message"))
+            sys.exit()
         for coin in coins:
             if coin["name"] == name: #this name shuld not contain the dollar sign:
                 id_ = coin["id"]
@@ -47,11 +49,10 @@ def get_prices(id_, start, end):
             #"precision": "2"
         }
         r = requests.get(url, headers=headers, params=parameters)
-
-        prices = r.json().get("prices")
-        if not prices:
-            print("5m interval is only accessible to enterprise subscribers")
+        if r.status_code != 200:
+            print(r.json().get("status").get("error_message"))
             sys.exit()
+        prices = r.json().get("prices")
         prices_ = [price[1] for price in prices]
         return prices_
     except Exception as e:

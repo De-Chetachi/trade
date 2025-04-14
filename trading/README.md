@@ -51,5 +51,5 @@ Execute the script from your terminal using the following format:
 example
 
 ```bash
-./request.py ViperMasol Pepe \$PEPE 7
+./request.py ViperMasol solana \$SOL 5
 ```

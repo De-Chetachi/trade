@@ -3,6 +3,7 @@ import requests
 import datetime
 from datetime import timedelta
 import os
+import sys
 
 gecko_key = "GECKO_KEY"
 gecko_value = os.environ.get(gecko_key)
@@ -46,7 +47,11 @@ def get_prices(id_, start, end):
             #"precision": "2"
         }
         r = requests.get(url, headers=headers, params=parameters)
-        prices = r.json()["prices"]
+
+        prices = r.json().get("prices")
+        if not prices:
+            print("5m interval is only accessible to enterprise subscribers")
+            sys.exit()
         prices_ = [price[1] for price in prices]
         return prices_
     except Exception as e:

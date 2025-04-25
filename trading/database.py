@@ -10,10 +10,11 @@ def get_db():
     """returns a mongodb database"""
     if not mongo_url:
         print('provide mongo_url env variable')
-        return
+        sys.exit()
     try:
         client = MongoClient(mongo_url)
-        return client['price_action']
+        db = client['price_action']
+        return db
     except Exception as e:
-        print("mongo connectio error")
+        print("mongo connection error")
         sys.exit()

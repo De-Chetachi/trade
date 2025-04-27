@@ -17,14 +17,14 @@ os.environ["MONGO_URL"] = mongo
 
 # Input fields
 username = st.text_input("Enter the Twitter username:", "")
-days = st.number_input("Enter the number of days to look back:", min_value=1, max_value=30, value=7)
+days = st.number_input("Enter the number of days to look back:", min_value=1)
 
 # Button to trigger the process
 if st.button("Fetch Tweets"):
     from request import posts
     if username:
         try:
-            st.write(f"Fetching tweets for user: {username} over the past {days} days...")
+            st.write(f"Fetching tweets for user: {username} over the past {days} day(s)...")
             data = posts(username, days)
             st.dataframe(data)
             st.success("Tweets fetched and processed successfully!")

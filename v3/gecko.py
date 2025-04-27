@@ -31,23 +31,25 @@ def get_ca(ticker):
                 return ca
         return None
     except Exception as e:
-        print(e)
+        print(f'get_ca_error->{e}')
         return None
 
 
 def get_name(ca):
     """retrieves the name of a coin given the ca"""
     try:
-        url = "https://api.coingecko.com/api/v3/coins/solana/contract/{ca}"
+        url = f"https://api.coingecko.com/api/v3/coins/solana/contract/{ca}"
+        #url = "https://api.coingecko.com/api/v3/coins/solana/contract/HaP8r3ksG76PhQLTqR8FYBeNiQpejcFbQmiHbg787Ut1 \
         r = requests.get(url, headers=headers)
         if r.status_code != 200:
-            print(r.json().get("status").get("error_message"))
+            print(r.json().get('error'))
             return None
         data = r.json()
+        print(f'get_name-{data}')
         name = data.get("name")
         return name
     except Exception as e:
-        print(e)
+        print(f'get_name_error->{e}')
         return None
 
 
@@ -70,9 +72,10 @@ def get_prices(ca, start, end):
         if r.status_code != 200:
             print(r.json().get("status").get("error_message"))
             return None
+        print(f'get_prices-{r.json()}')
         prices = r.json().get("prices")
         prices_ = [price[1] for price in prices]
         return prices_
     except Exception as e:
-        print(e)
+        print(f'get_price_error->{e}')
         return None

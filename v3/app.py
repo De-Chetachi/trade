@@ -1,5 +1,4 @@
 import streamlit as st
-from request import posts
 import os
 
 # Streamlit app title
@@ -22,6 +21,7 @@ days = st.number_input("Enter the number of days to look back:", min_value=1, ma
 
 # Button to trigger the process
 if st.button("Fetch Tweets"):
+    from request import posts
     if username:
         try:
             st.write(f"Fetching tweets for user: {username} over the past {days} days...")

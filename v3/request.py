@@ -100,7 +100,6 @@ def tweet_manu(username, tweet):
     parsed_date = datetime.datetime.strptime(date_str, date_format)
     date = parsed_date.astimezone(pytz.utc)
     cas = get_cas(tweet["text"]) #[(ticker, ca), (ticker, ca)]
-    print(cas)
     for ca_ in cas:
         ticker = ca_[0]
         ca = ca_[1]

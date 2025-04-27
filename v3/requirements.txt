@@ -1,6 +1,6 @@
 streamlit
 pandas
 plotly
-"pymongo[srv]"
+pymongo[srv]
 requests
 pytz

@@ -134,7 +134,6 @@ def posts(username, days):
 
         if res_posts.status_code != 200:
             return posts
-        print(posts)
         while 1:
             tweets = posts["data"]
             for tweet in tweets:
@@ -146,7 +145,7 @@ def posts(username, days):
                 posts = res_posts.json()
                 if res_posts.status_code != 200:
                     print(posts)
-                    break
+                    return print_pretty()
             else:
                 break
         return print_pretty()

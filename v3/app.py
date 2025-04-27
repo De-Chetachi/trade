@@ -1,11 +1,20 @@
 import streamlit as st
 from request import posts
+import os
 
 # Streamlit app title
 st.title("Twitter Data Fetcher")
 
 # Description
 st.write("This app retrieves and processes tweets from a specified Twitter user.")
+
+twitter = st.sidebar.text_input("Enter Twitter api key", "")
+gecko = st.sidebar.text_input("Enter coin_gecko api key", "")
+mongo = st.sidebar.text_input("Enter mongo_connection string", "")
+
+os.environ["TWITTER_TOKEN"] = twitter
+os.environ["GECKO_KEY"] = gecko
+os.environ["MONGO_URL"] = mongo
 
 # Input fields
 username = st.text_input("Enter the Twitter username:", "")

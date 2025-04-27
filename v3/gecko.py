@@ -39,7 +39,7 @@ def get_name(ca):
     """retrieves the name of a coin given the ca"""
     try:
         url = "https://api.coingecko.com/api/v3/coins/solana/contract/{ca}"
-        r = requests.get(url, headers=headers, params=params)
+        r = requests.get(url, headers=headers)
         if r.status_code != 200:
             print(r.json().get("status").get("error_message"))
             return None

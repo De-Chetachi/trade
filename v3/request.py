@@ -87,11 +87,9 @@ def get_cas(tweet):
                     found = 1
                     break
             if not found:
-                ticker = get_name(ca)
+                ticker = get_name(match)
                 token_ca.append((ticker, match))
                 ticker_ca[ticker] = match
-            
-
     return token_ca
 
 

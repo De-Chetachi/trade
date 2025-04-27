@@ -26,7 +26,7 @@ if st.button("Fetch Tweets"):
         try:
             st.write(f"Fetching tweets for user: {username} over the past {days} days...")
             data = posts(username, days)
-            st.write(data)
+            st.dataframe(data)
             st.success("Tweets fetched and processed successfully!")
         except Exception as e:
             st.error(f"An error occurred: {e}")

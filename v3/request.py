@@ -110,6 +110,8 @@ def tweet_manu(username, tweet):
             end = (date + timedelta(minutes=15)).timestamp()
             prices = get_prices(ca, start, end)
             if not prices:
+                e = "error fetching price"
+                add_doc(username, date, e, e, e, e, ca, ticker)
                 continue
             add_doc(username, date, prices[0], prices[1], prices[2], prices[3], ca, ticker)
         except Exception as e:
